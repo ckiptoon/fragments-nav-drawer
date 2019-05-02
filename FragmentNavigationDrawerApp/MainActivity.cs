@@ -8,12 +8,16 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
+using FragmentNavigationDrawerApp.Fragments;
+using V4Fragment = Android.Support.V4.App.Fragment;
 
 namespace FragmentNavigationDrawerApp
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
+        IMenuItem currentItem;
+        Android.Support.V7.Widget.Toolbar toolbar;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,6 +36,16 @@ namespace FragmentNavigationDrawerApp
 
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
+
+            if(savedInstanceState == null)
+            {
+                navigationView.SetCheckedItem(Resource.Id.nav_camera);
+
+                // Initialize Posts fragment
+                SupportFragmentManager.BeginTransaction()
+                    .Replace(Resource.Id.main_framelayout, HomeFragment.NewInstance())
+                    .Commit();
+            }
         }
 
         public override void OnBackPressed()
@@ -75,13 +89,23 @@ namespace FragmentNavigationDrawerApp
         {
             int id = item.ItemId;
 
+            if(currentItem != null)            
+                currentItem.SetChecked(false);
+
+            currentItem = item;
+
+            NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.SetCheckedItem(id);
+
+            V4Fragment fragment = null;
+
             if (id == Resource.Id.nav_camera)
             {
-                // Handle the camera action
+                fragment = HomeFragment.NewInstance();
             }
             else if (id == Resource.Id.nav_gallery)
             {
-
+                fragment = PostsFragment.NewInstance();
             }
             else if (id == Resource.Id.nav_slideshow)
             {
@@ -99,6 +123,10 @@ namespace FragmentNavigationDrawerApp
             {
 
             }
+
+            SupportFragmentManager.BeginTransaction()
+                .Replace(Resource.Id.main_framelayout, fragment)
+                .Commit();
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
