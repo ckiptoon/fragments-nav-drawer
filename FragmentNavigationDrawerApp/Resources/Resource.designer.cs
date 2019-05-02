@@ -4423,6 +4423,9 @@ namespace FragmentNavigationDrawerApp
 			// aapt resource value: 0x7f0d002e
 			public const int hide_bottom_view_on_scroll_behavior = 2131558446;
 			
+			// aapt resource value: 0x7f0d003a
+			public const int home_title = 2131558458;
+			
 			// aapt resource value: 0x7f0d002f
 			public const int mtrl_chip_close_icon_content_description = 2131558447;
 			
@@ -4446,6 +4449,9 @@ namespace FragmentNavigationDrawerApp
 			
 			// aapt resource value: 0x7f0d0034
 			public const int path_password_strike_through = 2131558452;
+			
+			// aapt resource value: 0x7f0d003b
+			public const int post_title = 2131558459;
 			
 			// aapt resource value: 0x7f0d001b
 			public const int search_menu_title = 2131558427;

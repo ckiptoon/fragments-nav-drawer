@@ -25,6 +25,7 @@ namespace FragmentNavigationDrawerApp
             SetContentView(Resource.Layout.activity_main);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+            SupportActionBar.SetTitle(Resource.String.home_title);
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
@@ -101,10 +102,12 @@ namespace FragmentNavigationDrawerApp
 
             if (id == Resource.Id.nav_camera)
             {
+                SupportActionBar.SetTitle(Resource.String.home_title);
                 fragment = HomeFragment.NewInstance();
             }
             else if (id == Resource.Id.nav_gallery)
             {
+                SupportActionBar.SetTitle(Resource.String.post_title);
                 fragment = PostsFragment.NewInstance();
             }
             else if (id == Resource.Id.nav_slideshow)
